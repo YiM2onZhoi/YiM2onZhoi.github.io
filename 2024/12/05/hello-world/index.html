@@ -1,100 +1,182 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hello World | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2024/12/05/hello-world/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-12-05T07:36:07.798Z">
-<meta property="article:modified_time" content="2024-12-05T08:51:54.190Z">
-<meta property="article:author" content="Berry">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8" />
+    <title>Hello World | Hexo</title>
+    <meta name="author" content="Berry" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="https://static-argvchs.netlify.app/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
-  
-  
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>HEXO</span>
+        </a>
         
-          <a class="main-nav-link" href="/">Home</a>
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
         
-      </nav>
-      <nav id="sub-nav">
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
         
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
         
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
         
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;HEXO</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
 
-      <div class="outer">
-        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/05/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-12-05T07:36:07.798Z" itemprop="datePublished">2024-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Hello World</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/12/5
+        </span>
         
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Hello World
-    </h1>
-  
-
-      </header>
+        
+    </div>
     
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="Oh, these decrypted content cannot be verified, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="2c39beb0877a86453e756cda3d12ac275a39a9c9a03d50031207c0313c3bd01a">8857952509ef9895f61625fe2d594ef3c9251b16e75667b105d9b8e2f98fa4e0c494f99b3d7554ae30086249b805cde1fe829b34d38aa0681ad350aafa2c2da4c8681f4421e346dbc95e2e6923f9aeeaa7cb0ef799698a147bdd2547f87a667e80c4a457c4883e6a81c948b927aacdc8269abeb88afac5bbc909b14dfc1b0b17a2c72d6e20855b7f036ad637e406b96743a43a6c316871106e837e1bd6267befaadec082c11fd845ddf6c9c26eb5eafa6c71e5f7481fcd0821adeb5e5f7538c7d82b6357cc0a428a90dd2cb346d68f73fd55de4b0ead7d7488faddce0f62dd303df3ea0fe875c5fe284dc715cfa64ab1bdc4a9b449d0fcb4a5e41699583904cbb629413ee14378578d3540101f40ce6e93be912dfedf12723b663517027c0e1f677fa7cb6f67e581c42e8874d27ba96a40f6d9aeec6a527e368987493283f493372cf11342e3d2a4c530c6c3979e12f1c2761035d7ee2a597e6a60988d2d38cb5bb373a6c5c100e6663b683470d7681ff1493d477e1a31b20c08159bacf4406461a024726c9fab32fc0b423009a3942995804910e5a93cef058bc5229daa2c350fb0b30592da132e5c00058daa83114ce3684d937e25d7f9d888d54e7a6f3c76961e17f0156c335bb6e7e9fecc7e4fbaf7bea5c23849bca8d38e9edde3160d9a9e45711b8c450e653706eb619ef2f2a69baf67b88c51971c3a9c87afa86dff05d3dba36e4903b2e2543ac0b5d0260ea2528fdd4f09bb982f0f1c0b717a1c7a0f4a645918b35acdbf7b41e85a42df50ff7eb3b1f0e5d2e619a9dd351b44d0f942d7dc89823967c327536563c7fb8964fa4370488589da03106034c57a542f0b15acb9d597642bd15a20bb3c06a8c340cd583a7a850103f01d602540c7668db6e6e4cbb19893760fa5794a440a0c74043c2091d38480e702c52a65612054b381b4ba18867f34b4337c07d5df8cc17aa415f945521f0017c7db1a88d572d1d678514cd5008a25424b17271dd652a6e37468f5efe1dc718320d603baf7c0d969972a077a6edc19cd271cb4b5e3974f15e1b4381d3f1053bc978ec5728891d6fbedce553f45347a33d904d3d9ecffb633f5e5e32ec408f21c30a7d4d5ca85b21c383bd9d51dea3310bb284eba806a9dc49c19f03a0a4cf24034b487967c50f3d799355a81249b29586a51896bade3be3cdc5f6031249290f04e7fd05df804f7953c214dc15c1e71d3016b3848e74c06dae7f5e1e80eff053c31b8c2da32dfc03d70c3b37c761e92fc5ea4888536f66dba9f642a6cd7a417a7f147003e2705b6f29d7cb8d0acc7e3be94a05111c02cfd79b096e1e2072da27cab648aa9e6e2315af1e67b1d217e1199e0673b0b4c6a37421db26588ba7ab8f7119ec0ab421238122ca513dcf78898e2100ff3416cbddc2ba4238eaae43092d93131d3b7f409de2ea78ab32df9de9caefc53d0572b3e5806c65f1ffe661c8cd64bbf1c54e5f63dc1993bce73df41b20a1bee9f3575bc4646b5eb61433611e6dd0dd728f8a6c78caca55ce957bef323fd8ba47ebb3e19496c4870693100f4ce32ee06ff889de880b50d78c95710dc06d65c0d0a7717a91b43fb741ab16743ed17e1508fb12d722c242166e8d5f96a2cd0a4fcc5c65363faba256d2ec8f484b847b9be8b9aa37c85fc63f92bdb345a3b65ae86bc210d2ea06ee794aaed7baa505bbbbe190177b55289d235a95f47c8d1ebae4275686cf7bd7ae77ec657c965e0148b418e98ee542975e6e43d57c951fab08c79559daf6bd2354e0883aba987dcfe2e408ef332d2001db3740435a7c1fe9784db593da2cbeb1adceb9ee4404f7aeedfc0e0e817cb68aa03d30b264980ba76f845f10f4f1b314bbf4aea226a04bfb24fc33405b28feea57dc2fb0df9f6140f4d0ab246964203985935a560cda463f4369cdfbdc3beb4176457e98d6e26ed183c606d4a0f491d8c003a1ea10ad7ebf522fca18face13f629b9edff8cd94e2fb568a07919586eb2e246d54de8559057c4f82feaacf3eb82912c039d5fdfb9dfda3f28a48e664f2dc1511f3edcc688dff90755ee69e2ed7ecf26973914c855de3dabeef492c1d8c073ea0057cba0f2fb435df3ea97a000e3389383efde12ddbf126f76a4421f0cc49419844a2d3d7875e7c315ae18b8ea5c2a5406723d7a23500713d3cdc9dd63d5eb8107f5719e40045a29eb57814715a5f0fd0bd683bb2d980eeee67bb363f705c38852086d4588ba8b657575d1420f52975b128ba7b406cdeb5d6ef1e997f76c3f71c34516e3f0dd559767ba37d091aa9af7dd29c9b9577d0b49a8c999ae3eb726ad2305a9f7c5850ebfa5ef4778e1bdcb4903a9b61139f900144b080df3474afe3da646f8915422a2af8c50b218ec32952377bc73de50e07e904d242fee491f4e005abe19579bbe9a9c90d8c7b55c488014e3fa197c9e72c165d087537c8cfeb2d675843e532d5baa8162aaa3bc8818e54eff4aef1cb54c51abaf697c1e7f03880e8aab0075b121928ad3e593bfdd9997461f0898d9d7f23e6d890cf0a1f985ef40ce77bdd395cd91e67feab349bde5a943a7b707f8ee9a72911789d80abf5ab3aacfa618c6bf6fb240156e3df4d494ef7fa4e1dc6d55523359aeee1a70a5bcc1aefcd19f6c26d4c081e1396188c439c685b94e101173ef65d1803122cac071e431150a1d93f658ece2168610acea09cb125a3ef3fbfc6194a9ffeed57839b92305c77d585216c956e6b296052cab317b49f3dcb9ee5aba7af707e8556e3055f8cb36e70abc446cf28029c352baadcf1fa112600146c21c68927c1c5dc4b3b9f406974bc8eec88b413938fb67dd2ec6e80702b57c2eefbd9442ce98e80f13672d9e2e5f8ec6233cc86c46373de2eca42deb2b673fe109eb1f16d8e14b6e4e5a0029ea7a5e4a0bf6ed917a0e157ee765efb1846b447f8fcf81304aa1fc236bdac20a3a3fd939da8febae0aa4e3f27cc7d58b0265c27bf74749022ae5f6ac5c3c3fef8689c66c54bf54293e794ba382b5c3c9389b35264308163261e44328dc19a8bcde13d9088a6e722f9349a3a1ec362a8e4fa094e2ab9d5c0ad4ac2eda949fdeef072356bbf2a9a5e2627ee81f766896092a59406ff8504ac6baf72662cb9604222</script>
+    <div class="content" v-pre>
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="bc4a672b15a45819394bad890abfb03a36870fa0dfac178a4a72d49efca3bb0e">165d50f05814027fb7fe5e4ae8a088d86d0c1aba6d70b1044ca65dff1bf2218cbd3b930c090fc7b66d2adb6659e3ccf95194d3e32dc083e2525c89d0052fb19de71b1620ddb2e7b355e7ee5fd05404a69bda6c22a0217bd4d3d2594b3445ccdbdd7a6ee3d6676e7dd78202d7330cc589a3a37bb9a1c2ed57aa6a412412549c1174bc9e19ba7c2bde4b3a3741eefc5cc68e95b70c0a00ccc5a372d53193264017b841db02f3cb1075c920ab398c5211cb054c74f10325726f1c16e8fc83763e404b1b113d96993960687f92c8ac1d10f3fca18876cbc0fa7fb340506e08077070a07666c404b929089c6eea3c2be575036244cce40472eedda9d368ebf199068ed1801edf81f2ef3960be94fcaa3faefea541a6969a1dd75f0b309280079554b0500ceb8bddb9fe2e3702ef1887eef37b55501f49d8646c689f5191de7845e05f726a20f2bf742c0903616ba6512cb9a2dab598fa33f56efe0656a0ef415ab29d4fdce66f2b4b8b2d04fdd588f80ab2a6f1be05eebd022026147c53a13fe08dedf0e1ebf7a5a6d0fcb3be4fca14de3651dc4923cea3f4bbc6eb712f2033443f4236d2af85c634357e100c96baf4ec34cd276ffa6b4174d431d7e7eddc8a20ec0c7bc76eadf29a4e058c893d9a1bc1f7f106e7f4139bd4c648a411bad54f7ffa0692e3c34f0a23ed09ee9e4f8b1736c15ed54498192ef2b72112f78e9ec7d1f0eaaf4720f5b79c1c64eec1b712f2234725553d52a521c305d9483bc692f0d519b70fb11fbd82c7b36824e94d6a6912901ca5e3cac2bb883a7dcbd48781ac2b9812fdbe67557c43696708dd1fc07dcc13fa6e6754baed7845d3a09361c274a0f02e807ecc9587c11b39421a8e2fc3617f517afc211274a78191f29111729609fcfa78e0dbea7fa095f0a396d637c69c2d8fa1a8eb9fb9937869722a683d4e2e242f9680537e2b80f2ab56c4102849eb5e9eacfe5e4d94d7d3429822cbc69bceb8b67481ca0088e4f8d4c56987ee1a0cfd4bd2c769c6b771d84b9b948bbb5d0b0e6eaa6f6ecc32406a7383a9668a889a3e53c34cb819c2bb5645e64e3d470355f587f2450a2cf55502b79998e3b127aad9690bb78e5700f22e181faa3119470c250e203b528a04ea4c5e4fc0f278a43f98bf673c6d703f572493deb1c8f38f46443563c9440dff41e6a2e292653394604fd8b16ece94b053e927aed728eb48352994ddd62ff5be5e0771494e444c86e5e8f458ad3191e057ffe186f8f013b5510921893cc1658a7fbacda2008e097707f06422587047b9165563161d37d39de0f21303a8a65b9d0199d4263c1a4e5f08e9c0ecadf252e15d99d24140fee29191b53490578795ebf7331c6331ae2d9c7ababfec405f49aee558a2939185711f3ddf5bba71a577cd15e86f54ee8aef92b77e723f980f1bc414c0ae35dc6c09fcefa22c75d291bca802fc65fe770654bef28afc2be430fd4fea5d9f0d2b36c37e31ffd5b94b38c2a71b60817ef3020708e523b10935c590e22c76a26e807fe4ae6b330449f56b120da825afa48c243ea2130f8460a58cdce3fedb426e73a2ba94966742d80133566df9b8549f6bc3b8de1d0a60f755368051b4037136184acfa0c3b09da236aa9922cf994e993d74e158fd07aa1425dc80299d5defa0bdc9af39d524e1193d879dc40d38b7fbd8e0239ffc3d3b69f2c6c91e96b71a20ddfed5c8b26bed693d2f4e98fc2ae2bccdaa54c4f01efaf7dc8adedce91832eee6f444d8e98ff39986a3cda7682b6fa377ca8e0c2d95087f427695a2f829bc96139e3aa0edf0a5c609e2362c36b689035fc2c137c7b4f93c3d5a615156cf0ca82e6bbaff82aea7676268fc674bb7bfef33f1d92f9b04b22b981702b6c9908d1065ba143885038f2acd9d9db63b46beb2ed4f8864f1b87eec0cf371a6cda2d6706f16dd12e48a784f760875b2a3182461add9e82d426ccb94074fdd2fec50eaee678959da0dff6c078bfa2beb42797aa3cd779bcceaac812e1aa9263589d2e5c5673daacd30cd9c5c26ef41861d7eb1d252a32ad314bfe2578627cf3fbf856cac16b3affcdbe628595f3d28f8cb52d904a64eb207cd28cb7120d7e17d5120024eb093aa21aa5000e5089c7b94aa8ac60fb09ef663fbede1cc33638c203c9f9ff3624fc444b847db7f63a117a362b607bbd463dac5c3932c6dccabd2fa4fc5a85745c014679d122d2c929b46cc0953bfec99a88c19106c791098630a54013e2054751dd602acceb69a6f73b3ec3adc6c635d283866166737568ff60d59bdb08266e6c16d65df534690d655b06009a93a29ce31d9ea6a318ff851bf123131b7faccf3e299a7ce98dbe59fdaf01eb005bb92fc80b8a8b638a53bbbc96d0372e09e87673ad5abaae588b04a51c7e568529a064204e208387fecebc577649675cb8e54f727939dd97e227bd2634624f00679dc591e82352cf08e5fac0fa22e93e7ac84c3092e555ad28f52cc92dfe83894d93db2d9e1f0f84bc7aeca559ab93a790d834ad25a6a003baafb12b000823b6b934805a0965db88ce06b6d8ff4367a787871f6b0299d02bd97de13e0d5c7defa28ed48357e8c8d194110772aa4f883e8a1ae8966cda353e8f60fbe5aa52d7a8b0f385d4953a2bdd3de7f29b70d4f111cdabd2c404c1a2d9335cd54e2870ea1e177ed965007cf51f0816906df1f9a61218320d5b5c99f3bdbbe5aa4824f6fd82c2cd1f128a135019046f23e2ec095e23ac1a6f964a7542d64cd6e5b4f1d8e85252e7fdec4b105860d4ed7f9125df18c2f91a632d493cfaca1b6238d50200b2ce3d207033e51be56c7a7d8c4e018b9e36641bb09406504691d05cd0e156faf8066a8579e75ea3e6a832509fff8ece45ec5a5a1e12ca91efaf4d69410213bc0dce06d68842802ee497e4e88256104ed732e44a63b3d36f5a82f491a2d0e8d0f7d719ad7c6b1e6b28cc83178c9ebbfb4b5607c25cc8e509c1a4f293966e846ddf33231ff11fb7d876e1cfbd5b22d9b7be6a48a44c2e959a93fa625c769475fba86d8b338d84262ef7f61f7e7fb2e446b2031003859db61fdcae19db3c9d141a3d4d322b5e565a6c03d768b153b010b22b53d6ece76b908ed6dd6df6464e7dc08da7613ddd1c41aa517c608</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-default">
       <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
@@ -105,117 +187,50 @@
   </div>
 </div>
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/12/05/hello-world/" data-id="cm4c1xv3d00012guv63b29c3f" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2024/12/05/hi/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 Hexo
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Berry
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
         
-          hi
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
-</article>
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li></ul>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/12/05/hi/">hi</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/05/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2024 Berry<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
 
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <script src="/js/main.js"></script>
+    
     
 
 
-<script src="/js/jquery-3.6.4.min.js"></script>
 
 
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+    
 </body>
 </html>
