@@ -157,6 +157,8 @@
     
     
     
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜尋"></a>
+    
   </nav>
 </div>
 <header id="header">
@@ -269,7 +271,7 @@
     <div class="sidebar-wrap" data-aos="fade-up">
       
         <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
+  <h3 class="toc-title">文章目錄</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
         
@@ -284,15 +286,15 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Posts</div>
+    <div>文章</div>
     <div class="sidebar-state-number">2</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Categories</div>
+    <div>分類</div>
     <div class="sidebar-state-number">0</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tags</div>
+    <div>標簽</div>
     <div class="sidebar-state-number">0</div>
   </div>
 </div>
@@ -374,7 +376,7 @@
     </div>
     
       <div>
-        Powered by&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        基於&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
         Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
       </div>
     
@@ -392,10 +394,10 @@
     
       <div>
         <span class="icon-eye"></span>
-        <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">縂訪問量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
         &nbsp;|&nbsp;
         <span class="icon-user"></span>
-        <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">縂訪客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
     
   </div>
@@ -413,7 +415,7 @@
   <div class="sidebar-wrap">
     
       <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
-  <h3 class="toc-title">Contents</h3>
+  <h3 class="toc-title">文章目錄</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
         
@@ -428,15 +430,15 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Posts</div>
+    <div>文章</div>
     <div class="sidebar-state-number">2</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Categories</div>
+    <div>分類</div>
     <div class="sidebar-state-number">0</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tags</div>
+    <div>標簽</div>
     <div class="sidebar-state-number">0</div>
   </div>
 </div>
@@ -501,6 +503,22 @@
 
     </div>
     
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
     
 <script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
 
@@ -536,6 +554,10 @@
 
 <script src="/js/pjax_script.js" data-pjax></script>
 
+
+
+  
+<script src="/js/generator_search.js" defer></script>
 
 
 
