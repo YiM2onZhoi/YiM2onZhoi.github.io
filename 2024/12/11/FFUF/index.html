@@ -37,7 +37,7 @@
 <meta property="og:description" content="介绍一下ffuf的使用场景以及命令参数等等">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-12-11T07:42:28.626Z">
-<meta property="article:modified_time" content="2024-12-11T07:55:57.481Z">
+<meta property="article:modified_time" content="2024-12-11T08:16:44.560Z">
 <meta property="article:author" content="Berry">
 <meta property="article:tag" content="Knowledge">
 <meta name="twitter:card" content="summary">
@@ -194,60 +194,37 @@
         <p>介绍一下ffuf的使用场景以及命令参数等等</p>
 <span id="more"></span>
 
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">描述</th>
-<th align="left">Example Scenario</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-mc</code> (match code)</td>
-<td align="left">Include only responses that match the specified status codes. You can provide a single code, multiple codes separated by commas, or ranges of codes separated by hyphens (e.g., <code>200,204,301</code>, <code>400-499</code>). The default behavior is to match codes 200-299, 301, 302, 307, 401, 403, 405, and 500.</td>
-<td align="left">After fuzzing, you notice many 302 (Found) redirects, but you’re primarily interested in 200 (OK) responses. Use <code>-mc 200</code> to isolate these.</td>
-</tr>
-<tr>
-<td align="left"><code>-fc</code> (filter code)</td>
-<td align="left">Exclude responses that match the specified status codes, using the same format as <code>-mc</code>. This is useful for removing common error codes like 404 Not Found.</td>
-<td align="left">A scan returns many 404 errors. Use <code>-fc 404</code> to remove them from the output.</td>
-</tr>
-<tr>
-<td align="left"><code>-fs</code> (filter size)</td>
-<td align="left">Exclude responses with a specific size or range of sizes. You can specify single sizes or ranges using hyphens (e.g., <code>-fs 0</code> for empty responses, <code>-fs 100-200</code> for responses between 100 and 200 bytes).</td>
-<td align="left">You suspect the interesting responses will be larger than 1KB. Use <code>-fs 0-1023</code> to filter out smaller responses.</td>
-</tr>
-<tr>
-<td align="left"><code>-ms</code> (match size)</td>
-<td align="left">Include only responses that match a specific size or range of sizes, using the same format as <code>-fs</code>.</td>
-<td align="left">You are looking for a backup file that you know is exactly 3456 bytes in size. Use <code>-ms 3456</code> to find it.</td>
-</tr>
-<tr>
-<td align="left"><code>-fw</code> (filter out number of words in response)</td>
-<td align="left">Exclude responses containing the specified number of words in the response.</td>
-<td align="left">You’re filtering out a specific number of words from the responses. Use <code>-fw 219</code> to filter for responses containing that amount of words.</td>
-</tr>
-<tr>
-<td align="left"><code>-mw</code> (match word count)</td>
-<td align="left">Include only responses that have the specified amount of words in the response body.</td>
-<td align="left">You’re looking for short, specific error messages. Use <code>-mw 5-10</code> to filter for responses with 5 to 10 words.</td>
-</tr>
-<tr>
-<td align="left"><code>-fl</code> (filter line)</td>
-<td align="left">Exclude responses with a specific number of lines or range of lines. For example, <code>-fl 5</code> will filter out responses with 5 lines.</td>
-<td align="left">You notice a pattern of 10-line error messages. Use <code>-fl 10</code> to filter them out.</td>
-</tr>
-<tr>
-<td align="left"><code>-ml</code> (match line count)</td>
-<td align="left">Include only responses that have the specified amount of lines in the response body.</td>
-<td align="left">You’re looking for responses with a specific format, such as 20 lines. Use <code>-ml 20</code> to isolate them.</td>
-</tr>
-<tr>
-<td align="left"><code>-mt</code> (match time)</td>
-<td align="left">Include only responses that meet a specific time-to-first-byte (TTFB) condition. This is useful for identifying responses that are unusually slow or fast, potentially indicating interesting behavior.</td>
-<td align="left">The application responds slowly when processing certain inputs. Use <code>-mt &gt;500</code> to find responses with a TTFB greater than 500 milliseconds.</td>
-</tr>
-</tbody></table>
+<h2 id="文件爆破"><a href="#文件爆破" class="headerlink" title="文件爆破"></a>文件爆破</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -u http://example.com/FUZZ -w wordlist.txt -e .php,.html</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-u</code> 指定目标URL</li>
+<li><code>-w</code> 指定字典文件</li>
+<li><code>-e</code> 指定要测试的文件扩展名</li>
+</ul>
+<h2 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w directory-list-2.3-medium.txt -u http://example.com/FUZZ -mc 200</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-w</code> 指定一个包含潜在目录名的字典文件</li>
+<li><code>-u</code> 指定目标URL</li>
+<li><code>-mc 200</code> 指定只显示状态码为200的响应</li>
+</ul>
+<h2 id="子域名爆破"><a href="#子域名爆破" class="headerlink" title="子域名爆破"></a>子域名爆破</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w subdomains.txt -u http://FUZZ.example.com -H <span class="string">&quot;Host: FUZZ.example.com&quot;</span> -mc 200</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-w</code> 指定一个包含潜在子域名的字典文件</li>
+<li><code>-u</code> 指定目标URL</li>
+<li><code>-H</code> 添加HTTP头信息</li>
+<li><code>-mc 200</code> 指定只显示状态码为200的响应</li>
+</ul>
+<h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffuf -w password.txt -X POST -d <span class="string">&quot;username=admin&amp;password=FUZZ&quot;</span> -u http://example.com/login -mc 200</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-w</code> 指定一个包含潜在密码的字典文件</li>
+<li><code>-X POST</code> 指定HTTP方法为POST</li>
+<li><code>-d</code> 指定POST数据</li>
+<li><code>-u</code> 指定目标URL</li>
+<li><code>-mc 200</code> 指定只显示状态码为200的响应</li>
+</ul>
 
       
     </div>
@@ -258,7 +235,7 @@
     <p><strong>本文链接：</strong><a href="https://yim2onzhoi.github.io/2024/12/11/FFUF/">https://yim2onzhoi.github.io/2024/12/11/FFUF/</a></p>
     <p><strong>本文标题：</strong>FFUF食用方法</p>
     <p><strong>本文发布时间：</strong>2024-12-11 15:42:28</p>
-    <p><strong>本文修改时间：</strong>2024-12-11 15:55:57</p>
+    <p><strong>本文修改时间：</strong>2024-12-11 16:16:44</p>
     <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
     <span class="icon-creative-commons article-copyright-bg"></span>
   </blockquote>
@@ -315,7 +292,7 @@
   <h3 class="toc-title">文章目录</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4"><span class="toc-number">1.</span> <span class="toc-text">文件爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F"><span class="toc-number">2.</span> <span class="toc-text">目录扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%9F%9F%E5%90%8D%E7%88%86%E7%A0%B4"><span class="toc-number">3.</span> <span class="toc-text">子域名爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">暴力破解</span></a></li></ol>
       
   </div>
 </div>
@@ -408,10 +385,10 @@
     
       <div>
         <span class="icon-brush"></span>
-        1.5k
+        1.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:09
+        00:08
       </div>
     
     
@@ -443,7 +420,7 @@
   <h3 class="toc-title">文章目录</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4"><span class="toc-number">1.</span> <span class="toc-text">文件爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%89%AB%E6%8F%8F"><span class="toc-number">2.</span> <span class="toc-text">目录扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%9F%9F%E5%90%8D%E7%88%86%E7%A0%B4"><span class="toc-number">3.</span> <span class="toc-text">子域名爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">暴力破解</span></a></li></ol>
       
   </div>
 </div>
